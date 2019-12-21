@@ -1,0 +1,93 @@
+import java.util.*;
+
+public class Intersection{
+	
+    
+    public static void mergeSort3(int[] input,int start,int mid,int end){
+        //int i,j,k;
+        int n1=mid-start+1;
+        int n2=end-mid;
+        
+        int L[]=new int[n1];
+        int R[]=new int[n2];
+       
+        for(int i=0;i<n1;i++){
+            L[i]=input[start+i];
+        }
+        
+        for(int j=0;j<n2;j++){
+            R[j]=input[mid+1+j];
+        }
+        
+        int i=0,j=0;
+        int k=start;
+        while(i<n1  && j<n2){
+            if(L[i]<=R[j]){
+                input[k]=L[i];
+                i++;
+            }
+            else {
+                input[k]=R[j];
+                j++;
+            }
+            k++;
+            
+        }
+        while(i<n1){
+            input[k]=L[i];
+            i++;
+            k++;
+        }
+        
+        while(j<n2){
+            input[k]=R[j];
+            j++;
+            k++;
+        }
+    }
+    public static void mergeSort2(int[] input,int start,int end){
+        
+        if(start>=end){
+            return;
+        }
+        
+        int mid=(start+end)/2;
+        mergeSort2(input,start,mid);
+        mergeSort2(input,mid+1,end);
+        mergeSort3(input,start,mid,end);
+    }
+    public static void mergeSort1(int[] input,int len){
+        int start=0;
+        int end=len;
+        mergeSort2(input,start,end);
+    }
+	public static void mergeSort(int[] input){
+		// Write your code here
+        int len=input.length-1;
+		mergeSort1(input,len);
+	}
+	public static void intersection(int[] arr1, int[] arr2){
+		
+        mergeSort(arr1);
+       
+        mergeSort(arr2);
+         int i=0,j=0;
+        
+        while(i<arr1.length && j<arr2.length){
+            
+            if(arr1[i]==arr2[j]){
+                System.out.println(arr1[i]);
+                i++;
+                j++;
+            }
+            else if(arr1[i]<arr2[j]){
+                i++;
+            }
+            else if(arr1[i]>arr2[j]){
+                j++;
+            }
+        }
+        
+
+	}
+}
